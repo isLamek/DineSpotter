@@ -1,25 +1,43 @@
 import React from "react";
-import {Text, StyleSheet, ScrollView, View, TouchableOpacity} from "react-native";
+import { Text, StyleSheet, ScrollView, View, TouchableOpacity, Alert } from "react-native";
 import { FontFamily, Color, Border, FontSize } from "./GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
-
-
+import * as Location from 'expo-location';
 
 const MainMenu = () => {
+  const navigation = useNavigation();
 
-	const navigation = useNavigation();
-  	
-  	return (
-    		<ScrollView style={styles.mainMenu}>
-      			<Text style={[styles.letsGetYou, styles.letsGetYouTypo]}>Let’s Get You A Place To Go Out To Eat....</Text>
-      			<View style={styles.mainMenuChild} />
-      			<TouchableOpacity style={[styles.useCurrentLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.4} onPress={()=>{navigation.navigate("LocationInput")}}>
-        				<Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Use Current Location</Text>
-      			</TouchableOpacity>
-      			<TouchableOpacity style={[styles.setLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("DistanceInput")}}>
-        				<Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Set             Location</Text>
-      			</TouchableOpacity>
-    		</ScrollView>);
+  const handleUseCurrentLocation = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Location permission is required to use this feature.');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      // Record the location for later use
+      console.log('Current Location:', location.coords.latitude, location.coords.longitude);
+      
+      // Navigate to the next screen
+      navigation.navigate("DistanceInput");
+    } catch (error) {
+      console.error('Error getting current location:', error);
+    }
+  };
+
+  return (
+    <ScrollView style={styles.mainMenu}>
+      <Text style={[styles.letsGetYou, styles.letsGetYouTypo]}>Let’s Get You A Place To Go Out To Eat....</Text>
+      <View style={styles.mainMenuChild} />
+      <TouchableOpacity style={[styles.useCurrentLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.4} onPress={handleUseCurrentLocation}>
+        <Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Use Current Location</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.setLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.3} onPress={() => { navigation.navigate("LocationInput") }}>
+        <Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Set             Location</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

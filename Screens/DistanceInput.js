@@ -1,30 +1,80 @@
-import React from "react";
-import {Text, StyleSheet, ScrollView, Pressable, TouchableOpacity, View} from "react-native";
 import { FontSize, Border, FontFamily, Color } from "./GlobalStyles";
+import React, { useState } from 'react';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
-const DistanceInput = ({navigation}) => {
-  	
-  	return (
-    		<ScrollView style={styles.distanceInput}>
-      			<View style={[styles.distanceInputChild, styles.distancePosition]} />
-      			<TouchableOpacity style={styles.nextWrapper} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
-        				<Text style={styles.next}>Next</Text>
-      			</TouchableOpacity>
-      			<View style={[styles.rectangleParent, styles.distancePosition]}>
-        				<View style={[styles.frameChild, styles.frameLayout]} />
-        				<TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={()=>{}}>
-          					<Text style={[styles.text, styles.textTypo]}>-</Text>
-        				</TouchableOpacity>
-        				<TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={()=>{}}>
-          					<Text style={[styles.text1, styles.textTypo]}>+</Text>
-        				</TouchableOpacity>
-        				<View style={[styles.frameItem, styles.frameLayout]} />
-        				<Text style={[styles.km, styles.kmTypo]}>km</Text>
-        				<Text style={[styles.text2, styles.kmTypo]}>5</Text>
-      			</View>
-      			<Text style={[styles.distance, styles.textTypo]}>Distance</Text>
-    		</ScrollView>);
+const DistanceInput = () => {
+  const [distance, setDistance] = useState(5);
+  const navigation = useNavigation();
+
+  const handleIncrease = () => {
+    setDistance(prevDistance => prevDistance + 5);
+  };
+
+  const handleDecrease = () => {
+    setDistance(prevDistance => prevDistance - 5);
+  };
+
+  const handleNext = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Location permission denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      // Record the entered distance and current location for later use
+      console.log('Distance:', distance, 'km');
+      console.log('Current Location:', location.coords.latitude, location.coords.longitude);
+
+      // Navigate to the next screen
+      navigation.navigate('Filters');
+    } catch (error) {
+      console.error('Error getting current location:', error);
+    }
+  };
+
+  return (
+    <ScrollView style={styles.distanceInput}>
+      <View style={[styles.distanceInputChild, styles.distancePosition]} />
+      <TouchableOpacity 
+        style={styles.nextWrapper} 
+        activeOpacity={0.3} 
+        onPress={handleNext}
+      >
+        <Text style={styles.next}>Next</Text>
+      </TouchableOpacity>
+      <View style={[styles.rectangleParent, styles.distancePosition]}>
+        <View style={[styles.frameChild, styles.frameLayout]} />
+        <TouchableOpacity 
+          style={[styles.touchableopacity, styles.kmPosition]} 
+          activeOpacity={0.2} 
+          onPress={handleDecrease}
+        >
+          <Text style={[styles.text, styles.textTypo]}>-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.touchableopacity, styles.kmPosition]} 
+          activeOpacity={0.2} 
+          onPress={handleIncrease}
+        >
+          <Text style={[styles.text1, styles.textTypo]}>+</Text>
+        </TouchableOpacity>
+        <View style={[styles.frameItem, styles.frameLayout]} />
+        <Text style={[styles.km, styles.kmTypo]}>km</Text>
+        <Text style={[styles.text2, styles.kmTypo]}>{distance}</Text>
+      </View>
+      <Text style={[styles.distance, styles.textTypo]}>Distance</Text>
+    </ScrollView>
+  );
 };
+
+DistanceInput.navigationOptions = {
+  headerShown: false,
+};
+
 
 const styles = StyleSheet.create({
   	distancePosition: {

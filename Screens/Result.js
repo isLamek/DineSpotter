@@ -8,8 +8,7 @@ const Result = () => {
   	return (
     		<ScrollView style={styles.result}>
       			<View style={styles.aiResponseParent}>
-        				<Text style={styles.aiResponse}>{`AI response
-`}</Text>
+        				<Text style={styles.aiResponse}>{`AI response will be displayed here`}</Text>
                 <View style={styles.frameChild} />
                 <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={()=>{}}>
                     <View style={[styles.groupChild, styles.groupBorder]} />

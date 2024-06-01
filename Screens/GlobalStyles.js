@@ -4,13 +4,8 @@ export const FontFamily = {
     gloryExtraBold: "Glory-ExtraBold",
     interBlack: "Inter-Black",
   	abelRegular: "Abel-Regular",
-      interBlack: "Inter-Black",
-      gloryExtraBold: "Glory-ExtraBold",
-      gloryExtraBold: "Glory-ExtraBold",
-      abelRegular: "Abel-Regular",
-      interBlack: "Inter-Black",
-      interSemiBold: "Inter-SemiBold",
-      interMedium: "Inter-Medium",
+    interSemiBold: "Inter-SemiBold",
+    interMedium: "Inter-Medium",
 };
 /* font sizes */
 export const FontSize = {
@@ -29,8 +24,6 @@ export const Color = {
     colorBlack: "#000",
   	colorGainsboro: "#d9d9d9",
     colorWhite: "#fff",
-    colorBlack: "#000",
-    colorGainsboro: "#d9d9d9",
 };
 /* border radiuses */
 export const Border = {

@@ -1,24 +1,64 @@
-import React from "react";
+import React, { useState } from 'react';
 import {StyleSheet, View, Text, TextInput, Pressable, TouchableOpacity} from "react-native";
 import { FontFamily, FontSize, Color } from "./GlobalStyles";
 
 
-const LocationInput = ({navigation}) => {
+const LocationInput = ({ navigation }) => {
+	const [city, setCity] = useState('');
+  
+	const handleTextChange = (text) => {
+	  setCity(text);
+	};
+  
+	const handleNextPress = () => {
+	  // Use the city state here as needed before navigating
+	  console.log('Entered City:', city);
+	  navigation.navigate('Filters');
+	};
+  
+	return (
+	  <View style={styles.locationInput}>
+		<View style={styles.locationInputChild} />
+		<Text style={[styles.setLocation, styles.nextPosition]}>SET LOCATION</Text>
+		<View style={styles.rectangleParent}>
+		  <View style={[styles.groupChild, styles.extraPosition]} />
+		  <TextInput
+			style={[styles.extra, styles.extraPosition]}
+			placeholder="Enter City"
+			placeholderTextColor="rgba(60, 60, 67, 0.6)"
+			value={city}
+			onChangeText={handleTextChange}
+		  />
+		</View>
+		<TouchableOpacity
+		  style={[styles.rectangleGroup, styles.groupLayout]}
+		  activeOpacity={0.3}
+		  onPress={handleNextPress}
+		>
+		  <View style={[styles.groupItem, styles.groupLayout]} />
+		  <Text style={[styles.next, styles.nextPosition]}>Next</Text>
+		</TouchableOpacity>
+	  </View>
+	);
+  };
+
+
+// const LocationInput = ({navigation}) => {
   	
-  	return (
-    		<View style={styles.locationInput}>
-      			<View style={styles.locationInputChild} />
-      			<Text style={[styles.setLocation, styles.nextPosition]}>SET  LOCATION</Text>
-      			<View style={styles.rectangleParent}>
-        				<View style={[styles.groupChild, styles.extraPosition]} />
-        				<TextInput style={[styles.extra, styles.extraPosition]} placeholder="Enter City" placeholderTextColor="rgba(60, 60, 67, 0.6)" />
-      			</View>
-      			<TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
-        				<View style={[styles.groupItem, styles.groupLayout]} />
-        				<Text style={[styles.next, styles.nextPosition]}>Next</Text>
-      			</TouchableOpacity>
-    		</View>);
-};
+//   	return (
+//     		<View style={styles.locationInput}>
+//       			<View style={styles.locationInputChild} />
+//       			<Text style={[styles.setLocation, styles.nextPosition]}>SET  LOCATION</Text>
+//       			<View style={styles.rectangleParent}>
+//         				<View style={[styles.groupChild, styles.extraPosition]} />
+//         				<TextInput style={[styles.extra, styles.extraPosition]} placeholder="Enter City" placeholderTextColor="rgba(60, 60, 67, 0.6)" />
+//       			</View>
+//       			<TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
+//         				<View style={[styles.groupItem, styles.groupLayout]} />
+//         				<Text style={[styles.next, styles.nextPosition]}>Next</Text>
+//       			</TouchableOpacity>
+//     		</View>);
+// };
 
 const styles = StyleSheet.create({
   	nextPosition: {
