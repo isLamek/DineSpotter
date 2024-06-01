@@ -1,136 +1,151 @@
 import React from "react";
-import {Text, StyleSheet, Pressable, TouchableOpacity, View} from "react-native";
+import {Text, StyleSheet, ScrollView, Pressable, TouchableOpacity, View} from "react-native";
 import { FontSize, Border, FontFamily, Color } from "./GlobalStyles";
 
 const DistanceInput = ({navigation}) => {
-
-	
-
+  	
   	return (
-    		<View style={styles.distanceInput}>
-      			<Text style={[styles.distance, styles.nextTypo]}>Distance</Text>
-      			<TouchableOpacity style={[styles.nextWrapper, styles.frameFlexBox]} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
-        				<Text style={[styles.next, styles.nextTypo]}>Next</Text>
+    		<ScrollView style={styles.distanceInput}>
+      			<View style={[styles.distanceInputChild, styles.distancePosition]} />
+      			<TouchableOpacity style={styles.nextWrapper} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
+        				<Text style={styles.next}>Next</Text>
       			</TouchableOpacity>
-      			<View style={styles.frameParent}>
-        				<View style={[styles.frame, styles.framePosition]}>
-          					<Text style={[styles.text, styles.textTypo]}>5</Text>
-        				</View>
-        				<TouchableOpacity style={[styles.touchableopacity, styles.touchableopacityPosition]} activeOpacity={0.2} onPress={()=>{}}>
-          					<Text style={[styles.text1, styles.textTypo]}>-</Text>
+      			<View style={[styles.rectangleParent, styles.distancePosition]}>
+        				<View style={[styles.frameChild, styles.frameLayout]} />
+        				<TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.text, styles.textTypo]}>-</Text>
         				</TouchableOpacity>
-        				<TouchableOpacity style={[styles.touchableopacity1, styles.touchableopacityPosition]} activeOpacity={0.2} onPress={()=>{}}>
-          					<Text style={[styles.text2, styles.textTypo]}>+</Text>
+        				<TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.text1, styles.textTypo]}>+</Text>
         				</TouchableOpacity>
-        				<View style={[styles.frame1, styles.framePosition]}>
-          					<Text style={[styles.km, styles.textTypo]}>km</Text>
-        				</View>
+        				<View style={[styles.frameItem, styles.frameLayout]} />
+        				<Text style={[styles.km, styles.kmTypo]}>km</Text>
+        				<Text style={[styles.text2, styles.kmTypo]}>5</Text>
       			</View>
-    		</View>);
+      			<Text style={[styles.distance, styles.textTypo]}>Distance</Text>
+    		</ScrollView>);
 };
 
 const styles = StyleSheet.create({
-  	nextTypo: {
-    		textAlign: "center",
-    		fontSize: FontSize.size_13xl
-  	},
-  	frameFlexBox: {
-    		justifyContent: "center",
-    		borderRadius: Border.br_8xs
-  	},
-  	framePosition: {
-    		height: 39,
-    		top: 62,
-    		position: "absolute",
-    		overflow: "hidden"
-  	},
-  	textTypo: {
-    		fontSize: FontSize.size_xl,
-    		textAlign: "center",
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900"
-  	},
-  	touchableopacityPosition: {
-    		top: 70,
+  	distancePosition: {
+    		left: "50%",
     		position: "absolute"
   	},
-  	distance: {
-    		top: 71,
-    		left: 108,
+  	frameLayout: {
+    		height: 33,
+    		top: 67,
+    		borderRadius: Border.br_8xs,
+    		position: "absolute"
+  	},
+  	kmPosition: {
+    		top: "50%",
+    		left: "50%"
+  	},
+  	textTypo: {
+    		fontFamily: FontFamily.interBlack,
+    		fontWeight: "900",
     		color: Color.colorWhite,
+    		textAlign: "center"
+  	},
+  	kmTypo: {
+    		fontSize: FontSize.size_xl,
     		fontFamily: FontFamily.interBlack,
     		fontWeight: "900",
     		textAlign: "center",
-    		fontSize: FontSize.size_13xl,
     		position: "absolute"
+  	},
+  	distanceInputChild: {
+    		marginLeft: -272,
+    		top: -149,
+    		borderRadius: 400,
+    		width: 400,
+    		height: 400,
+    		backgroundColor: Color.colorBlack,
+    		overflow: "hidden"
   	},
   	next: {
-    		alignSelf: "stretch",
+    		top: 8,
+    		left: 0,
+    		fontSize: 32,
     		fontWeight: "800",
     		fontFamily: FontFamily.gloryExtraBold,
-    		color: Color.colorBlack,
     		textAlign: "center",
-    		fontSize: FontSize.size_13xl
-  	},
-  	nextWrapper: {
-    		top: 669,
-    		left: 104,
+    		color: Color.colorBlack,
     		width: 163,
-    		height: 52,
-    		alignItems: "flex-end",
-    		backgroundColor: Color.colorGainsboro,
     		position: "absolute"
   	},
+  	nextWrapper: {
+    		marginLeft: -83,
+    		top: 669,
+    		height: 52,
+    		width: 163,
+    		borderRadius: Border.br_8xs,
+    		backgroundColor: Color.colorGainsboro,
+    		left: "50%",
+    		position: "absolute"
+  	},
+  	frameChild: {
+    		left: 96,
+    		width: 56,
+    		backgroundColor: Color.colorBlack
+  	},
   	text: {
-    		color: Color.colorWhite
-  	},
-  	frame: {
-    		left: 64,
-    		backgroundColor: Color.colorBlack,
-    		width: 107,
-    		paddingHorizontal: 43,
-    		paddingVertical: 0,
-    		justifyContent: "center",
-    		borderRadius: Border.br_8xs
-  	},
-  	text1: {
-    		width: 23,
-    		color: Color.colorWhite
+    		marginLeft: -123.5,
+    		width: 50,
+    		height: 50,
+    		color: Color.colorWhite,
+    		fontSize: FontSize.size_29xl,
+    		marginTop: -34,
+    		fontFamily: FontFamily.interBlack,
+    		fontWeight: "900"
   	},
   	touchableopacity: {
-    		left: 41
+    		top: "50%",
+    		position: "absolute"
   	},
-  	text2: {
-    		color: Color.colorWhite
+  	text1: {
+    		marginLeft: -7.5,
+    		color: Color.colorWhite,
+    		fontSize: FontSize.size_29xl,
+    		marginTop: -34,
+    		fontFamily: FontFamily.interBlack,
+    		fontWeight: "900"
   	},
-  	touchableopacity1: {
-    		left: 178
+  	frameItem: {
+    		left: 221,
+    		width: 49,
+    		backgroundColor: Color.colorGainsboro,
+    		top: 67
   	},
   	km: {
-    		width: 38,
-    		height: 19,
-    		color: Color.colorBlack
-  	},
-  	frame1: {
-    		left: 206,
-    		borderRadius: 10,
-    		width: 60,
-    		alignItems: "center",
-    		paddingHorizontal: 0,
-    		paddingVertical: 7,
-    		backgroundColor: Color.colorGainsboro
-  	},
-  	frameParent: {
-    		marginTop: -25,
-    		marginLeft: -169,
+    		marginTop: -12,
+    		marginLeft: 60.5,
     		top: "50%",
     		left: "50%",
+    		color: Color.colorBlack,
+    		fontSize: FontSize.size_xl
+  	},
+  	text2: {
+    		top: 72,
+    		left: 117,
+    		color: Color.colorWhite
+  	},
+  	rectangleParent: {
+    		marginLeft: -170,
+    		top: 280,
     		borderRadius: 50,
     		backgroundColor: "#313135",
     		width: 339,
-    		height: 164,
-    		position: "absolute",
+    		height: 168,
     		overflow: "hidden"
+  	},
+  	distance: {
+    		marginLeft: -143,
+    		top: 66,
+    		fontSize: 40,
+    		color: Color.colorWhite,
+    		left: "50%",
+    		position: "absolute"
   	},
   	distanceInput: {
     		backgroundColor: "#75ccd8",

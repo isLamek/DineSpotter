@@ -6,8 +6,7 @@ import MainMenu from './Screens/MainMenu';
 import DistanceInput from './Screens/DistanceInput';
 import LocationInput from './Screens/LocationInput';
 import Filters from './Screens/Filters';
-import Results from './Screens/Results';
-import Final from './Screens/Final';
+import Result from './Screens/Result';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +18,7 @@ export default function App() {
         <Stack.Screen component = {DistanceInput} name = "DistanceInput" />
         <Stack.Screen component = {LocationInput} name = "LocationInput" />
         <Stack.Screen component = {Filters} name='Filters' />
-        <Stack.Screen component = {Results} name='Results' />
-        <Stack.Screen component = {Final} name='Final' />
+        <Stack.Screen component = {Result} name = "Result" />
       </Stack.Navigator>
       <StatusBar styles="auto" />
     </NavigationContainer>

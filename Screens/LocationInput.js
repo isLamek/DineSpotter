@@ -2,84 +2,106 @@ import React from "react";
 import {StyleSheet, View, Text, TextInput, Pressable, TouchableOpacity} from "react-native";
 import { FontFamily, FontSize, Color } from "./GlobalStyles";
 
+
 const LocationInput = ({navigation}) => {
   	
   	return (
     		<View style={styles.locationInput}>
       			<View style={styles.locationInputChild} />
-      			<Text style={[styles.setLocation, styles.setLocationTypo]}>SET  LOCATION</Text>
-      			<TextInput style={styles.extra} placeholder="Search" placeholderTextColor="rgba(60, 60, 67, 0.6)" />
-      			<Text style={[styles.suggestions, styles.setLocationTypo]}>Suggestions</Text>
-      			<TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
-        				<View style={[styles.groupChild, styles.groupChildLayout]} />
-        				<Text style={styles.next}>Next</Text>
+      			<Text style={[styles.setLocation, styles.nextPosition]}>SET  LOCATION</Text>
+      			<View style={styles.rectangleParent}>
+        				<View style={[styles.groupChild, styles.extraPosition]} />
+        				<TextInput style={[styles.extra, styles.extraPosition]} placeholder="Enter City" placeholderTextColor="rgba(60, 60, 67, 0.6)" />
+      			</View>
+      			<TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("Filters")}}>
+        				<View style={[styles.groupItem, styles.groupLayout]} />
+        				<Text style={[styles.next, styles.nextPosition]}>Next</Text>
       			</TouchableOpacity>
     		</View>);
 };
 
 const styles = StyleSheet.create({
-  	setLocationTypo: {
-    		textAlign: "left",
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900",
-    		letterSpacing: 0,
-    		fontSize: FontSize.size_5xl,
+  	nextPosition: {
     		color: Color.colorBlack,
+    		fontSize: FontSize.size_13xl,
+    		left: "50%",
     		position: "absolute"
   	},
-  	groupChildLayout: {
+  	extraPosition: {
+    		backgroundColor: Color.colorWhite,
+    		top: 0,
+    		height: 45,
+    		left: "50%",
+    		position: "absolute"
+  	},
+  	groupLayout: {
     		height: 52,
     		width: 163,
+    		left: "50%",
     		position: "absolute"
   	},
   	locationInputChild: {
-    		top: 195,
-    		left: 39,
-    		width: 285,
-    		height: 253,
-    		backgroundColor: Color.colorGainsboro,
-    		position: "absolute"
+    		marginLeft: -467.9,
+    		top: 373,
+    		borderRadius: 50,
+    		backgroundColor: "#313135",
+    		width: 500,
+    		height: 392,
+    		transform: [
+      			{
+        				rotate: "-35deg"
+      			}
+    		],
+    		left: "50%",
+    		position: "absolute",
+    		overflow: "hidden"
   	},
   	setLocation: {
+    		marginLeft: -120,
     		top: 41,
-    		left: 102,
-    		lineHeight: 45
-  	},
-  	extra: {
-    		top: 86,
-    		left: 7,
-    		borderRadius: 25,
-    		backgroundColor: "#fff",
-    		width: 343,
-    		height: 45,
-    		fontFamily: FontFamily.abelRegular,
-    		fontSize: 17,
-    		position: "absolute"
-  	},
-  	suggestions: {
-    		top: 291,
-    		left: 108,
-    		lineHeight: 30
+    		letterSpacing: 0,
+    		lineHeight: 45,
+    		fontWeight: "900",
+    		fontFamily: FontFamily.interBlack,
+    		textAlign: "left"
   	},
   	groupChild: {
-    		top: 0,
-    		left: 0,
-    		borderRadius: 5,
-    		backgroundColor: Color.colorGainsboro
+    		borderRadius: 25,
+    		width: 328,
+    		marginLeft: -164,
+    		backgroundColor: Color.colorWhite
   	},
-  	next: {
-    		top: 8,
-    		left: 50,
-    		fontSize: 32,
-    		fontWeight: "800",
-    		fontFamily: FontFamily.gloryExtraBold,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		position: "absolute"
+  	extra: {
+    		marginLeft: -145,
+    		width: 288,
+    		fontFamily: FontFamily.abelRegular,
+    		fontSize: 17
   	},
   	rectangleParent: {
-    		top: 685,
-    		left: 100
+    		top: 123,
+    		height: 45,
+    		width: 328,
+    		marginLeft: -164,
+    		left: "50%",
+    		position: "absolute"
+  	},
+  	groupItem: {
+    		marginLeft: -81.5,
+    		borderRadius: 5,
+    		backgroundColor: "#d9d9d9",
+    		top: 0,
+    		width: 163
+  	},
+  	next: {
+    		marginLeft: -31.5,
+    		top: 8,
+    		fontWeight: "800",
+    		fontFamily: FontFamily.gloryExtraBold,
+    		textAlign: "center"
+  	},
+  	rectangleGroup: {
+    		marginLeft: -82,
+    		top: 216
   	},
   	locationInput: {
     		backgroundColor: "#75ccd8",

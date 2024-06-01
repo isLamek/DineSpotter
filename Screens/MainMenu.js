@@ -1,25 +1,25 @@
 import React from "react";
-import {Text, StyleSheet, View, Pressable, TouchableOpacity} from "react-native";
+import {Text, StyleSheet, ScrollView, View, TouchableOpacity} from "react-native";
 import { FontFamily, Color, Border, FontSize } from "./GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 
+
+
 const MainMenu = () => {
 
-    const navigation = useNavigation();
+	const navigation = useNavigation();
   	
   	return (
-    		<View style={styles.mainMenu}>
-      			<View style={styles.frame}>
-        				<Text style={[styles.letsGetYou, styles.letsGetYouTypo]}>{`Let’s Get  You A Place
-          					To Go Out To Eat....`}</Text>
-      			</View>
-      			<TouchableOpacity style={[styles.setLocationWrapper, styles.locationWrapperSpaceBlock]} activeOpacity={0.3} onPress={()=>[navigation.navigate("LocationInput")]}>
-        				<Text style={[styles.setLocation, styles.letsGetYouTypo]}>Set             Location</Text>
+    		<ScrollView style={styles.mainMenu}>
+      			<Text style={[styles.letsGetYou, styles.letsGetYouTypo]}>Let’s Get You A Place To Go Out To Eat....</Text>
+      			<View style={styles.mainMenuChild} />
+      			<TouchableOpacity style={[styles.useCurrentLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.4} onPress={()=>{navigation.navigate("LocationInput")}}>
+        				<Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Use Current Location</Text>
       			</TouchableOpacity>
-      			<TouchableOpacity style={[styles.useCurrentLocationWrapper, styles.locationWrapperSpaceBlock]} activeOpacity={0.4} onPress={()=>[navigation.navigate("DistanceInput")]}>
-        				<Text style={[styles.setLocation, styles.letsGetYouTypo]}>Use Current Location</Text>
+      			<TouchableOpacity style={[styles.setLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.3} onPress={()=>{navigation.navigate("DistanceInput")}}>
+        				<Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Set             Location</Text>
       			</TouchableOpacity>
-    		</View>);
+    		</ScrollView>);
 };
 
 const styles = StyleSheet.create({
@@ -27,40 +27,49 @@ const styles = StyleSheet.create({
     		textAlign: "center",
     		fontFamily: FontFamily.gloryExtraBold,
     		fontWeight: "800",
-    		alignSelf: "stretch"
+    		position: "absolute"
   	},
-  	locationWrapperSpaceBlock: {
-    		paddingVertical: 0,
-    		paddingHorizontal: 45,
-    		alignItems: "flex-end",
+  	locationWrapperLayout: {
+    		height: 72,
     		width: 328,
     		backgroundColor: Color.colorGray_100,
     		borderRadius: Border.br_xl,
-    		left: 16,
+    		marginLeft: -164,
+    		left: "50%",
     		position: "absolute"
   	},
   	letsGetYou: {
+    		marginLeft: -167,
+    		top: 29,
     		fontSize: 40,
-    		color: "#161617"
-  	},
-  	frame: {
-    		top: 22,
-    		left: 13,
+    		color: "#161617",
     		width: 334,
-    		alignItems: "center",
-    		justifyContent: "flex-end",
+    		height: 203,
+    		left: "50%"
+  	},
+  	mainMenuChild: {
+    		marginLeft: -320,
+    		top: 391,
+    		borderRadius: 500,
+    		backgroundColor: "#fff",
+    		width: 500,
+    		height: 500,
+    		left: "50%",
     		position: "absolute",
     		overflow: "hidden"
   	},
-  	setLocation: {
+  	useCurrentLocation: {
+    		top: 0,
+    		left: 45,
     		fontSize: FontSize.size_13xl,
-    		color: Color.colorSkyblue
-  	},
-  	setLocationWrapper: {
-    		top: 543
+    		color: Color.colorSkyblue,
+    		width: 238
   	},
   	useCurrentLocationWrapper: {
-    		top: 431
+    		top: 519
+  	},
+  	setLocationWrapper: {
+    		top: 641
   	},
   	mainMenu: {
     		backgroundColor: Color.colorSkyblue,

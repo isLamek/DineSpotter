@@ -1,365 +1,695 @@
-import React from "react";
-import {Text, StyleSheet, Image, View, Pressable, TouchableOpacity} from "react-native";
-import { FontFamily, Color, FontSize } from "./GlobalStyles";
+import React, { useState } from 'react';
+import {Text, StyleSheet, Pressable, TouchableOpacity, Switch, View, ScrollView, TextInput} from "react-native";
+import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+
 
 const Filters = ({navigation}) => {
-
-    
+  	const [rectangleSwitchSwitchValueState, setRectangleSwitchSwitchValueState] = useState(false);
   	
   	return (
-    		<View style={[styles.filters, styles.filtersLayout]}>
-      			<Text style={[styles.filters1, styles.exactlyTypo]}>Filters</Text>
-      			<View style={styles.switchParent}>
-        				<Image style={styles.switchIcon} resizeMode="cover" source="Switch.png" />
-        				<Text style={[styles.showAllOpen, styles.foodTypeTypo]}>{`show all open
-          					restaurants`}</Text>
+    		<ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1200 }}>
+      			<View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
+        				<Text style={styles.showAllOpen}>show all open restaurants</Text>
+        				<TouchableOpacity style={[styles.labelWrapper, styles.frameWrapperLayout]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.label, styles.labelLayout]}>{`Restaurant `}</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.labelContainer, styles.frameWrapperLayout]} takeout="1" activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.label1, styles.labelLayout]}>Take Out</Text>
+        				</TouchableOpacity>
+        				<Text style={[styles.or, styles.orPosition]}>or</Text>
+        				<Switch style={styles.frameChild} value={rectangleSwitchSwitchValueState} onValueChange={setRectangleSwitchSwitchValueState} trackColor={{false: "#939393", true: "#d9d9d9"}} />
       			</View>
-      			<View style={[styles.foodTypeParent, styles.parentLayout]}>
-        				<Text style={[styles.foodType, styles.foodTypeTypo]}>Food Type</Text>
-        				<Text style={styles.label}>Get Started</Text>
+      			<View style={[styles.foodTypeParent, styles.parentPosition]}>
+        				<Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
+        				<TouchableOpacity style={[styles.italianWrapper, styles.frameBorder]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.italian, styles.labelLayout]}>Italian</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.pizzaWrapper, styles.frameWrapperLayout]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.pizza, styles.labelLayout]}>Pizza</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.labelFrame, styles.labelFramePosition]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.label2, styles.labelLayout]}>Sea Food</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.frameTouchableopacity, styles.frameBorder]} activeOpacity={0.2} onPress={()=>{}}>
+          					<Text style={[styles.label3, styles.labelLayout]}>Chicken</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.rectangleParent, styles.labelFramePosition]} activeOpacity={0.2} onPress={()=>{}}>
+          					<View style={[styles.frameItem, styles.frameWrapperLayout]} />
+          					<Text style={[styles.label4, styles.labelLayout]}>Cultural</Text>
+        				</TouchableOpacity>
+        				<TouchableOpacity style={[styles.rectangleGroup, styles.italianWrapperPosition]} activeOpacity={0.2} onPress={()=>{}}>
+          					<View style={[styles.frameItem, styles.frameWrapperLayout]} />
+          					<Text style={[styles.label5, styles.labelLayout]}>General</Text>
+        				</TouchableOpacity>
       			</View>
-      			<View style={[styles.groupParent, styles.parentLayout]}>
-        				<View style={[styles.frameParent, styles.framePosition]}>
-          					<View style={[styles.restaurantWrapper, styles.framePosition]}>
-            						<Text style={[styles.restaurant, styles.takeoutTypo]}>restaurant</Text>
-          					</View>
-          					<View style={styles.segmentedControl}>
-            						<View style={[styles.segmentedControl1, styles.filtersLayout]}>
-              							<View style={[styles.option, styles.optionPosition]} />
-              							<View style={[styles.option1, styles.optionPosition]}>
-                								<View style={styles.background} />
-              							</View>
-            						</View>
-          					</View>
-        				</View>
-        				<Text style={[styles.takeout, styles.takeoutTypo]}>takeout</Text>
+      			<View style={[styles.budgetParent, styles.labelWrapperBorder]}>
+        				<Text style={[styles.budget, styles.budgetTypo]}>Budget:</Text>
+        				<TextInput style={[styles.extra, styles.extraTypo]} placeholder="Enter" keyboardType="number-pad" autoCapitalize="none" placeholderTextColor="rgba(60, 60, 67, 0.6)" />
+        				<Text style={[styles.n, styles.nFlexBox]}>N$</Text>
       			</View>
-      			<View style={[styles.frameGroup, styles.frameGroupPosition]}>
-        				<View style={[styles.frameChild, styles.framePosition]} />
-        				<View style={[styles.frameItem, styles.frameLayout]} />
-        				<Text style={[styles.text, styles.textTypo1]}>$$$</Text>
-        				<View style={[styles.frameInner, styles.frameLayout]} />
-        				<Text style={[styles.text1, styles.textTypo]}>$$$</Text>
-        				<View style={[styles.atMostWrapper, styles.wrapperLayout]}>
-          					<Text style={[styles.atMost, styles.textTypo1]}>at most</Text>
-        				</View>
-        				<View style={[styles.frameView, styles.wrapperLayout]} />
-        				<View style={[styles.exactlyWrapper, styles.wrapperLayout]}>
-          					<Text style={[styles.exactly, styles.exactlyTypo]}>exactly</Text>
-        				</View>
-        				<Text style={[styles.priceRange, styles.framePosition]}>Price Range</Text>
-        				<Text style={[styles.atLeast, styles.textTypo1]}>at least</Text>
-        				<View style={[styles.rectangleView, styles.frameLayout]} />
-        				<Text style={[styles.text1, styles.textTypo]}>$$$</Text>
-        				<Text style={[styles.text3, styles.textTypo]}>$$$</Text>
-      			</View>
-      			<TouchableOpacity style={[styles.searchWrapper, styles.frameGroupPosition]} activeOpacity={0.2} onPress={()=>{navigation.navigate("Results")}}>
-        				<Text style={styles.search}>SEARCH</Text>
+      			<TouchableOpacity style={styles.searchWrapper} activeOpacity={0.2} onPress={()=>{navigation.navigate("Result")}}>
+        				<Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
       			</TouchableOpacity>
-    		</View>);
+      			<View style={styles.anyOtherParent}>
+        				<Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
+        				<View style={styles.rectangleView} />
+        				<TextInput style={[styles.extra1, styles.extraTypo]} placeholder="Enter" multiline={true} placeholderTextColor="rgba(60, 60, 67, 0.6)" />
+      			</View>
+      			<Text style={[styles.filters1, styles.searchTypo]}>Filters</Text>
+    		</ScrollView>);
 };
 
 const styles = StyleSheet.create({
-  	filtersLayout: {
-    		overflow: "hidden",
-    		width: "100%"
-  	},
-  	exactlyTypo: {
-    		textAlign: "center",
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900",
-    		color: Color.colorBlack,
-    		position: "absolute"
-  	},
-  	foodTypeTypo: {
-    		fontSize: FontSize.size_5xl,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900"
-  	},
-  	parentLayout: {
-    		height: 109,
+  	parentPosition: {
     		width: 361,
-    		left: 0
-  	},
-  	framePosition: {
-    		top: 0,
-    		position: "absolute"
-  	},
-  	takeoutTypo: {
-    		fontFamily: FontFamily.interBold,
-    		fontWeight: "700",
-    		lineHeight: 20,
-    		fontSize: FontSize.size_mini,
-    		letterSpacing: 0,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		position: "absolute"
-  	},
-  	optionPosition: {
-    		bottom: "6.26%",
-    		top: "6.24%",
-    		height: "87.5%",
-    		position: "absolute"
-  	},
-  	frameGroupPosition: {
-    		width: 360,
+    		marginLeft: -180,
     		backgroundColor: Color.colorSkyblue,
-    		left: 0,
-    		position: "absolute"
-  	},
-  	frameLayout: {
-    		transform: [
-      			{
-        				rotate: "180deg"
-      			}
-    		],
-    		height: 23,
-    		width: 56,
-    		top: 91,
-    		backgroundColor: Color.colorWhite,
-    		position: "absolute"
-  	},
-  	textTypo1: {
-    		fontSize: FontSize.size_mini,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900",
-    		position: "absolute"
-  	},
-  	textTypo: {
-    		top: 95,
-    		fontSize: FontSize.size_mini,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900",
-    		position: "absolute"
-  	},
-  	wrapperLayout: {
-    		width: 74,
-    		height: 23,
-    		backgroundColor: Color.colorWhite,
+    		borderRadius: Border.br_xl,
+    		left: "50%",
     		position: "absolute",
     		overflow: "hidden"
   	},
-  	filters1: {
-    		top: 35,
-    		left: 115,
-    		fontSize: FontSize.size_21xl,
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900"
+  	frameWrapperLayout: {
+    		height: 25,
+    		width: 95,
+    		position: "absolute"
   	},
-  	switchIcon: {
-    		top: 44,
-    		left: 292,
-    		width: 51,
-    		height: 31,
+  	labelLayout: {
+    		lineHeight: 22,
+    		letterSpacing: 0
+  	},
+  	orPosition: {
+    		top: 41,
+    		color: Color.colorBlack
+  	},
+  	budgetTypo: {
+    		fontFamily: FontFamily.interBlack,
+    		fontWeight: "900",
+    		textAlign: "center"
+  	},
+  	frameBorder: {
+    		left: 229,
+    		borderWidth: 1,
+    		borderColor: Color.colorWhite,
+    		borderStyle: "solid",
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs
+  	},
+  	labelFramePosition: {
+    		top: 126,
+    		height: 25,
+    		width: 95,
+    		position: "absolute"
+  	},
+  	italianWrapperPosition: {
+    		top: 50,
+    		height: 25,
+    		width: 95,
+    		position: "absolute"
+  	},
+  	labelWrapperBorder: {
+    		borderWidth: 1,
+    		borderStyle: "solid"
+  	},
+  	extraTypo: {
+    		fontFamily: FontFamily.abelRegular,
+    		backgroundColor: Color.colorWhite,
+    		fontSize: FontSize.size_mid,
+    		position: "absolute"
+  	},
+  	nFlexBox: {
+    		textAlign: "left",
+    		color: Color.colorBlack
+  	},
+  	searchTypo: {
+    		fontSize: FontSize.size_21xl,
     		position: "absolute"
   	},
   	showAllOpen: {
-    		top: 13,
-    		left: 53,
-    		position: "absolute"
-  	},
-  	switchParent: {
-    		top: 145,
-    		height: 118,
-    		width: 361,
-    		backgroundColor: Color.colorSkyblue,
-    		left: 0,
-    		position: "absolute",
-    		overflow: "hidden"
-  	},
-  	foodType: {
-    		top: 39,
-    		left: 16,
+    		fontSize: 14,
+    		width: 191,
+    		textAlign: "center",
+    		color: Color.colorBlack,
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		left: 26,
+    		top: 88,
     		position: "absolute"
   	},
   	label: {
-    		top: 46,
-    		left: 237,
-    		fontSize: 17,
-    		lineHeight: 22,
-    		fontFamily: FontFamily.abelRegular,
+    		left: 5,
+    		fontSize: FontSize.size_mid,
     		letterSpacing: 0,
     		textAlign: "center",
-    		color: Color.colorBlack,
-    		position: "absolute"
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
   	},
-  	foodTypeParent: {
-    		top: 297,
-    		borderWidth: 1,
-    		height: 109,
-    		borderStyle: "solid",
-    		backgroundColor: Color.colorSkyblue,
-    		overflow: "hidden",
-    		borderColor: Color.colorBlack,
-    		position: "absolute"
-  	},
-  	restaurant: {
-    		top: 54,
-    		left: 64
-  	},
-  	restaurantWrapper: {
-    		borderColor: Color.colorSkyblue,
-    		height: 109,
-    		width: 361,
-    		left: 0,
+  	labelWrapper: {
+    		top: 40,
+    		left: 56,
     		borderWidth: 1,
     		borderStyle: "solid",
-    		backgroundColor: Color.colorSkyblue,
-    		overflow: "hidden"
+    		borderColor: Color.colorWhite,
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs,
+    		width: 95
   	},
-  	option: {
-    		width: "49.27%",
-    		right: "50.14%",
-    		left: "0.58%"
+  	label1: {
+    		left: 12,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
   	},
-  	background: {
-    		height: "103.57%",
-    		width: "100.63%",
-    		top: "-1.79%",
-    		right: "-0.31%",
-    		bottom: "-1.79%",
-    		left: "-0.31%",
-    		borderRadius: 7,
-    		borderColor: "rgba(0, 0, 0, 0.04)",
-    		borderWidth: 0.5,
-    		backgroundColor: Color.colorWhite,
+  	labelContainer: {
+    		top: 39,
+    		left: 207,
+    		borderWidth: 1,
     		borderStyle: "solid",
-    		position: "absolute"
+    		borderColor: Color.colorWhite,
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs,
+    		width: 95
   	},
-  	option1: {
-    		right: 2,
-    		left: 168
-  	},
-  	segmentedControl1: {
-    		height: "100%",
-    		top: "0%",
-    		right: "0%",
-    		bottom: "0%",
-    		left: "0%",
-    		borderRadius: 9,
-    		backgroundColor: Color.fillDarkTertiary,
-    		position: "absolute"
-  	},
-  	segmentedControl: {
-    		top: 45,
-    		left: 30,
-    		borderRadius: 15,
-    		width: 330,
-    		height: 32,
-    		position: "absolute"
-  	},
-  	frameParent: {
-    		height: 109,
-    		width: 361,
-    		left: 0
-  	},
-  	takeout: {
-    		left: 244,
-    		display: "flex",
-    		alignItems: "center",
-    		justifyContent: "center",
-    		width: 60,
-    		top: 51
-  	},
-  	groupParent: {
-    		top: 431,
+  	or: {
+    		left: 170,
+    		lineHeight: 22,
+    		letterSpacing: 0,
+    		fontSize: FontSize.size_mid,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
     		position: "absolute"
   	},
   	frameChild: {
-    		width: 374,
-    		height: 102,
-    		backgroundColor: Color.colorSkyblue,
-    		left: 0,
-    		top: 0,
-    		overflow: "hidden"
-  	},
-  	frameItem: {
-    		left: 346
-  	},
-  	text: {
-    		top: 96,
-    		left: 304
-  	},
-  	frameInner: {
-    		left: 220
-  	},
-  	text1: {
-    		left: 37
-  	},
-  	atMost: {
-    		top: 2,
-    		left: 9
-  	},
-  	atMostWrapper: {
-    		left: 281,
-    		top: 51
-  	},
-  	frameView: {
-    		top: 48,
-    		left: 19
-  	},
-  	exactly: {
-    		top: 4,
-    		left: 10,
-    		fontSize: 12
-  	},
-  	exactlyWrapper: {
-    		left: 150,
-    		top: 51
-  	},
-  	priceRange: {
-    		left: 111,
-    		fontSize: FontSize.size_5xl,
-    		textAlign: "center",
-    		color: Color.colorBlack,
-    		fontFamily: FontFamily.interBlack,
-    		fontWeight: "900"
-  	},
-  	atLeast: {
-    		top: 50,
-    		left: 27
-  	},
-  	rectangleView: {
-    		left: 80
-  	},
-  	text3: {
-    		left: 175
-  	},
-  	frameGroup: {
-    		top: 578,
-    		height: 142
-  	},
-  	search: {
-    		top: 7,
-    		left: 103,
-    		fontWeight: "800",
-    		fontFamily: FontFamily.interExtraBold,
-    		textAlign: "left",
-    		color: Color.colorBlack,
-    		fontSize: FontSize.size_21xl,
+    		top: 82,
+    		left: 214,
+    		width: 36,
+    		height: 29,
     		position: "absolute"
   	},
-  	searchWrapper: {
-    		top: 737,
-    		borderRadius: 20,
-    		borderWidth: 5,
-    		height: 63,
-    		borderColor: Color.colorBlack,
+  	showAllOpenRestaurantsParent: {
+    		top: 114,
+    		height: 118
+  	},
+  	foodType: {
+    		top: 8,
+    		left: 119,
+    		fontSize: FontSize.size_5xl,
+    		position: "absolute",
+    		color: Color.colorBlack,
+    		fontWeight: "900"
+  	},
+  	italian: {
+    		left: 24,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
+  	},
+  	italianWrapper: {
+    		top: 50,
+    		height: 25,
+    		width: 95,
+    		position: "absolute"
+  	},
+  	pizza: {
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack,
+    		left: 26
+  	},
+  	pizzaWrapper: {
+    		left: 39,
+    		borderWidth: 1,
     		borderStyle: "solid",
-    		width: 360,
+    		borderColor: Color.colorWhite,
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs,
+    		width: 95,
+    		top: 88
+  	},
+  	label2: {
+    		left: 11,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
+  	},
+  	labelFrame: {
+    		left: 229,
+    		borderWidth: 1,
+    		borderColor: Color.colorWhite,
+    		borderStyle: "solid",
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs
+  	},
+  	label3: {
+    		left: 15,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
+  	},
+  	frameTouchableopacity: {
+    		height: 25,
+    		width: 95,
+    		position: "absolute",
+    		top: 88
+  	},
+  	frameItem: {
+    		top: 0,
+    		left: 0,
+    		borderWidth: 1,
+    		borderStyle: "solid",
+    		borderColor: Color.colorWhite,
+    		backgroundColor: Color.colorGainsboro,
+    		borderRadius: Border.br_8xs,
+    		width: 95
+  	},
+  	label4: {
+    		left: 16,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
+  	},
+  	rectangleParent: {
+    		left: 39
+  	},
+  	label5: {
+    		left: 17,
+    		fontSize: FontSize.size_mid,
+    		letterSpacing: 0,
+    		textAlign: "center",
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		position: "absolute",
+    		top: 2,
+    		color: Color.colorBlack
+  	},
+  	rectangleGroup: {
+    		left: 39
+  	},
+  	foodTypeParent: {
+    		top: 263,
+    		height: 175
+  	},
+  	budget: {
+    		left: 21,
+    		fontSize: FontSize.size_5xl,
+    		position: "absolute",
+    		top: 41,
+    		color: Color.colorBlack
+  	},
+  	extra: {
+    		top: 32,
+    		left: 172,
+    		borderRadius: 15,
+    		width: 175,
+    		height: 45
+  	},
+  	n: {
+    		top: 44,
+    		left: 134,
+    		fontFamily: FontFamily.interRegular,
+    		fontSize: FontSize.size_5xl,
+    		position: "absolute",
+    		lineHeight: 22,
+    		letterSpacing: 0
+  	},
+  	budgetParent: {
+    		top: 469,
+    		borderColor: Color.colorSkyblue,
+    		height: 109,
+    		width: 361,
+    		marginLeft: -180,
+    		backgroundColor: Color.colorSkyblue,
+    		borderRadius: Border.br_xl,
+    		left: "50%",
+    		position: "absolute",
     		overflow: "hidden"
+  	},
+  	search: {
+    		top: 15,
+    		left: 72,
+    		textAlign: "left",
+    		color: Color.colorBlack,
+    		fontFamily: FontFamily.interSemiBold,
+    		fontWeight: "600",
+    		fontSize: FontSize.size_21xl
+  	},
+  	searchWrapper: {
+    		marginLeft: -154,
+    		top: 1043,
+    		borderColor: "rgba(255, 255, 255, 0.6)",
+    		borderWidth: 5,
+    		width: 309,
+    		height: 78,
+    		borderStyle: "solid",
+    		backgroundColor: Color.colorSkyblue,
+    		borderRadius: Border.br_xl,
+    		left: "50%",
+    		position: "absolute",
+    		overflow: "hidden"
+  	},
+  	anyOther: {
+    		top: 21,
+    		left: 115,
+    		fontSize: FontSize.size_5xl,
+    		position: "absolute",
+    		color: Color.colorBlack,
+    		fontWeight: "900"
+  	},
+  	rectangleView: {
+    		top: 57,
+    		left: 42,
+    		borderRadius: 22,
+    		width: 276,
+    		height: 134,
+    		backgroundColor: Color.colorWhite,
+    		position: "absolute"
+  	},
+  	extra1: {
+    		marginLeft: -113.5,
+    		top: 75,
+    		width: 228,
+    		height: 100,
+    		left: "50%"
+  	},
+  	anyOtherParent: {
+    		marginLeft: -179,
+    		top: 609,
+    		width: 359,
+    		height: 208,
+    		backgroundColor: Color.colorSkyblue,
+    		borderRadius: Border.br_xl,
+    		left: "50%",
+    		position: "absolute"
+  	},
+  	filters1: {
+    		marginLeft: -64,
+    		top: 55,
+    		color: Color.colorWhite,
+    		fontFamily: FontFamily.interBlack,
+    		fontWeight: "900",
+    		textAlign: "center",
+    		left: "50%"
   	},
   	filters: {
     		backgroundColor: "#817e7e",
     		flex: 1,
-    		height: 800
+    		width: "100%",
+    		height: 1165,
+    		overflow: "hidden"
   	}
 });
 
 export default Filters;
+
+
+
+// import React, { useState } from 'react';
+// import { Text, StyleSheet, TouchableOpacity, Switch, View, ScrollView, TextInput } from "react-native";
+// import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+
+// const Filters = ({ navigation }) => {
+//   const [rectangleSwitchSwitchValueState, setRectangleSwitchSwitchValueState] = useState(false);
+
+//   // State to track active buttons
+//   const [activeButton, setActiveButton] = useState({
+//     restaurant: false,
+//     takeOut: false,
+//     italian: false,
+//     pizza: false,
+//     seaFood: false,
+//     chicken: false,
+//     cultural: false,
+//     general: false,
+//   });
+
+//   const handleButtonPress = (buttonName) => {
+//     setActiveButton((prevState) => ({
+//       ...prevState,
+//       [buttonName]: !prevState[buttonName],
+//     }));
+//   };
+
+//   return (
+//     <ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1500 }}>
+//       <Text style={styles.filters1}>Filters</Text>
+//       <View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
+//         <Text style={[styles.showAllOpen, styles.searchTypo]}>show all open restaurants</Text>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper, activeButton.restaurant ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('restaurant')}
+//         >
+//           <Text style={[styles.label, styles.labelTypo]}>{`Restaurant `}</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelContainer, activeButton.takeOut ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('takeOut')}
+//         >
+//           <Text style={[styles.label1, styles.labelTypo]}>Take Out</Text>
+//         </TouchableOpacity>
+//         <Text style={[styles.or, styles.labelTypo]}>or</Text>
+//         <Switch
+//           style={styles.frameChild}
+//           value={rectangleSwitchSwitchValueState}
+//           onValueChange={setRectangleSwitchSwitchValueState}
+//           trackColor={{ false: "#939393", true: "#d9d9d9" }}
+//         />
+//       </View>
+//       <View style={[styles.foodTypeParent, styles.parentPosition]}>
+//         <Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
+//         <TouchableOpacity
+//           style={[styles.italianWrapper, activeButton.italian ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('italian')}
+//         >
+//           <Text style={[styles.italian, styles.labelTypo]}>Italian</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.pizzaWrapper, activeButton.pizza ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('pizza')}
+//         >
+//           <Text style={[styles.pizza, styles.labelTypo]}>Pizza</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelFrame, activeButton.seaFood ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('seaFood')}
+//         >
+//           <Text style={[styles.label2, styles.labelTypo]}>Sea Food</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.frameTouchableopacity, activeButton.chicken ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('chicken')}
+//         >
+//           <Text style={[styles.label3, styles.labelTypo]}>Chicken</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.rectangleParent, activeButton.cultural ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('cultural')}
+//         >
+//           <View style={[styles.frameItem]} />
+//           <Text style={[styles.label4, styles.labelTypo]}>Cultural</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.rectangleGroup, activeButton.general ? styles.activeButton : null]}
+//           activeOpacity={0.2}
+//           onPress={() => handleButtonPress('general')}
+//         >
+//           <View style={[styles.frameItem]} />
+//           <Text style={[styles.label5, styles.labelTypo]}>General</Text>
+//         </TouchableOpacity>
+//       </View>
+//       <View style={[styles.budgetParent, styles.labelWrapperBorder]}>
+//         <Text style={[styles.budget, styles.budgetTypo]}>Budget</Text>
+//         <TextInput
+//           style={[styles.extra, styles.extraTypo]}
+//           placeholder="Enter"
+//           keyboardType="number-pad"
+//           autoCapitalize="none"
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//         />
+//       </View>
+//       <TouchableOpacity style={styles.searchWrapper} activeOpacity={0.2} onPress={() => { navigation.navigate("Results"); }}>
+//         <Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
+//       </TouchableOpacity>
+//       <View style={styles.anyOtherParent}>
+//         <Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
+//         <TextInput
+//           style={[styles.extra1, styles.extraTypo]}
+//           placeholder="Enter"
+//           multiline
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//         />
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   filters: {
+//     flex: 1,
+//     padding: 20,
+//   },
+//   filters1: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//   },
+//   parentPosition: {
+//     marginVertical: 10,
+//   },
+//   showAllOpen: {
+//     fontSize: 16,
+//   },
+//   searchTypo: {
+//     fontSize: 16,
+//     fontWeight: '600',
+//   },
+//   labelWrapper: {
+//     padding: 10,
+//     backgroundColor: '#f0f0f0',
+//     borderRadius: 5,
+//     marginVertical: 5,
+//   },
+//   frameWrapperLayout: {
+//     paddingHorizontal: 15,
+//     paddingVertical: 10,
+//   },
+//   labelTypo: {
+//     fontSize: 14,
+//     fontWeight: '500',
+//   },
+//   or: {
+//     marginVertical: 10,
+//     textAlign: 'center',
+//   },
+//   frameChild: {
+//     alignSelf: 'center',
+//   },
+//   foodType: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//   },
+//   budgetTypo: {
+//     fontSize: 18,
+//     fontWeight: '600',
+//   },
+//   italianWrapper: {
+//     marginVertical: 5,
+//   },
+//   frameBorder: {
+//     borderWidth: 1,
+//     borderColor: '#ddd',
+//     borderRadius: 5,
+//     padding: 10,
+//   },
+//   pizzaWrapper: {
+//     marginVertical: 5,
+//   },
+//   labelFramePosition: {
+//     marginVertical: 5,
+//   },
+//   frameTouchableopacity: {
+//     marginVertical: 5,
+//   },
+//   rectangleParent: {
+//     marginVertical: 5,
+//   },
+//   frameItem: {
+//     backgroundColor: '#e0e0e0',
+//     borderRadius: 5,
+//     width: '100%',
+//     height: 40,
+//   },
+//   rectangleGroup: {
+//     marginVertical: 5,
+//   },
+//   italianWrapperPosition: {
+//     marginVertical: 5,
+//   },
+//   budgetParent: {
+//     marginVertical: 20,
+//   },
+//   labelWrapperBorder: {
+//     borderWidth: 1,
+//     borderColor: '#ccc',
+//     borderRadius: 5,
+//     padding: 10,
+//   },
+//   extra: {
+//     marginTop: 10,
+//     padding: 10,
+//     borderWidth: 1,
+//     borderColor: '#ddd',
+//     borderRadius: 5,
+//   },
+//   extraTypo: {
+//     fontSize: 16,
+//   },
+//   searchWrapper: {
+//     marginTop: 20,
+//     padding: 15,
+//     backgroundColor: '#007BFF',
+//     borderRadius: 5,
+//     alignItems: 'center',
+//   },
+//   search: {
+//     color: '#fff',
+//   },
+//   anyOtherParent: {
+//     marginVertical: 20,
+//   },
+//   anyOther: {
+//     fontSize: 18,
+//     fontWeight: '600',
+//   },
+//   extra1: {
+//     marginTop: 10,
+//     padding: 10,
+//     borderWidth: 1,
+//     borderColor: '#ddd',
+//     borderRadius: 5,
+//   },
+//   activeButton: {
+//     backgroundColor: '#d9d9d9',
+//   },
+// });
+
+// export default Filters;
