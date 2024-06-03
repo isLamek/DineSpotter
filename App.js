@@ -14,13 +14,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='MainMenu'>
-        <Stack.Screen component = {MainMenu} name = "MainMenu" />
-        <Stack.Screen component = {DistanceInput} name = "DistanceInput" />
-        <Stack.Screen component = {LocationInput} name = "LocationInput" />
-        <Stack.Screen component = {Filters} name='Filters' />
-        <Stack.Screen component = {Result} name = "Result" />
+        <Stack.Screen component={MainMenu} name="MainMenu" />
+        <Stack.Screen component={DistanceInput} name="DistanceInput" />
+        <Stack.Screen component={LocationInput} name="LocationInput" />
+        <Stack.Screen component={Filters} name='Filters' />
+        <Stack.Screen component={Result} name="Result" />
       </Stack.Navigator>
-      <StatusBar styles="auto" />
+      <StatusBar style="auto" />
     </NavigationContainer>
   );
-};
+}

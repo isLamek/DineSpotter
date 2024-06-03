@@ -1,4 +1,4 @@
-
+import { useFonts } from "expo-font";
 /* fonts */
 export const FontFamily = {
     gloryExtraBold: "Glory-ExtraBold",

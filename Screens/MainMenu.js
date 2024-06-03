@@ -3,6 +3,8 @@ import { Text, StyleSheet, ScrollView, View, TouchableOpacity, Alert } from "rea
 import { FontFamily, Color, Border, FontSize } from "./GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from 'expo-location';
+import { gloryExtraBold } from "expo-font";
+import { useFonts } from "expo-font";
 
 const MainMenu = () => {
   const navigation = useNavigation();
@@ -20,7 +22,7 @@ const MainMenu = () => {
       console.log('Current Location:', location.coords.latitude, location.coords.longitude);
       
       // Navigate to the next screen
-      navigation.navigate("DistanceInput");
+      navigation.navigate("DistanceInput", { latitude: location.coords.latitude, longitude: location.coords.longitude });
     } catch (error) {
       console.error('Error getting current location:', error);
     }

@@ -1,132 +1,453 @@
+// import React, { useState } from 'react';
+// import { Text, StyleSheet, TouchableOpacity, Switch, View, ScrollView, TextInput } from "react-native";
+// import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+
+// const Filters = ({ navigation }) => {
+//   const [rectangleSwitchSwitchValueState, setRectangleSwitchSwitchValueState] = useState(false);
+//   const [selectedRestaurantType, setSelectedRestaurantType] = useState(null);
+//   const [selectedFoodType, setSelectedFoodType] = useState(null);
+//   const [budget, setBudget] = useState('');
+//   const [otherCriteria, setOtherCriteria] = useState('');
+
+//   const handleRestaurantTypePress = (type) => {
+//     setSelectedRestaurantType(type);
+//   };
+
+//   const handleFoodTypePress = (type) => {
+//     setSelectedFoodType(type);
+//   };
+
+//   const handleSearchPress = () => {
+//     console.log("Restaurant Type:", selectedRestaurantType);
+//     console.log("Show Only Open Restaurants:", rectangleSwitchSwitchValueState);
+//     console.log("Food Type:", selectedFoodType);
+//     console.log("Budget (N$):", budget);
+//     console.log("Other Criteria:", otherCriteria);
+//     navigation.navigate("Result");
+//   };
+
+//   return (
+//     <ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1200 }}>
+//       <View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
+//         <Text style={styles.showAllOpen}>show only open restaurants</Text>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper, styles.labelWrapperLayout1, selectedRestaurantType === 'restaurant' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleRestaurantTypePress('restaurant')}
+//         >
+//           <Text style={[styles.label, styles.labelLayout]}>{`Restaurant `}</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelContainer, styles.labelWrapperLayout1, selectedRestaurantType === 'takeout' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleRestaurantTypePress('takeout')}
+//         >
+//           <Text style={[styles.label1, styles.labelLayout]}>Take Out</Text>
+//         </TouchableOpacity>
+//         <Text style={[styles.or, styles.orPosition]}>or</Text>
+//         <Switch
+//           style={styles.frameChild}
+//           value={rectangleSwitchSwitchValueState}
+//           onValueChange={setRectangleSwitchSwitchValueState}
+//           trackColor={{ false: "#939393", true: "#d9d9d9" }}
+//         />
+//       </View>
+//       <View style={[styles.foodTypeParent, styles.parentPosition]}>
+//         <Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
+//         <TouchableOpacity
+//           style={[styles.labelFrame, styles.labelWrapperLayout1, selectedFoodType === 'pizza' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('pizza')}
+//         >
+//           <Text style={[styles.label2, styles.labelLayout]}>Pizza</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.frameTouchableopacity, styles.labelWrapper4Layout, selectedFoodType === 'cultural' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('cultural')}
+//         >
+//           <Text style={[styles.label3, styles.labelLayout]}>Cultural</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper1, styles.labelWrapperLayout1, selectedFoodType === 'general' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('general')}
+//         >
+//           <Text style={[styles.label3, styles.labelLayout]}>General</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper2, styles.labelWrapperLayout, selectedFoodType === 'italian' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('italian')}
+//         >
+//           <Text style={[styles.label5, styles.labelLayout]}>Italian</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper3, styles.labelWrapperLayout, selectedFoodType === 'chicken' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('chicken')}
+//         >
+//           <Text style={[styles.label6, styles.labelLayout]}>Chicken</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper4, styles.labelWrapper4Layout, selectedFoodType === 'seaFood' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => handleFoodTypePress('seaFood')}
+//         >
+//           <Text style={[styles.label7, styles.labelLayout]}>Sea Food</Text>
+//         </TouchableOpacity>
+//       </View>
+//       <View style={styles.budgetParent}>
+//         <Text style={[styles.budget, styles.budgetTypo]}>Budget:</Text>
+//         <TextInput
+//           style={[styles.extra, styles.extraTypo]}
+//           placeholder="Enter"
+//           keyboardType="number-pad"
+//           autoCapitalize="none"
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//           value={budget}
+//           onChangeText={setBudget}
+//         />
+//         <Text style={[styles.n, styles.nFlexBox]}>N$</Text>
+//       </View>
+//       <TouchableOpacity
+//         style={styles.searchWrapper}
+//         activeOpacity={0.2}
+//         onPress={handleSearchPress}
+//       >
+//         <Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
+//       </TouchableOpacity>
+//       <View style={styles.anyOtherParent}>
+//         <Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
+//         <View style={styles.frameItem} />
+//         <TextInput
+//           style={[styles.extra1, styles.extraTypo]}
+//           placeholder="Enter any other criteria"
+//           keyboardType="default"
+//           autoCapitalize="none"
+//           multiline={true}
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//           value={otherCriteria}
+//           onChangeText={setOtherCriteria}
+//         />
+//       </View>
+//       <Text style={[styles.filters1, styles.searchTypo]}>Filters</Text>
+//     </ScrollView>
+//   );
+// };
+
+// import React, { useState } from 'react';
+// import { Text, StyleSheet, TouchableOpacity, Switch, View, ScrollView, TextInput } from "react-native";
+// import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
+// import { GoogleGenerativeAI } from "@google/generative-ai";
+
+
+// const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+// // Access your API key as an environment variable (see "Set up your API key" above)
+// const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+// // ...
+
+// // The Gemini 1.5 models are versatile and work with most use cases
+// const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+
+
+// const Filters = ({ navigation }) => {
+//   const [rectangleSwitchSwitchValueState, setRectangleSwitchSwitchValueState] = useState(false);
+//   const [selectedRestaurantType, setSelectedRestaurantType] = useState(null);
+//   const [selectedFoodType, setSelectedFoodType] = useState(null);
+//   const [budget, setBudget] = useState('');
+//   const [otherCriteria, setOtherCriteria] = useState('');
+
+//   const handleSearchPress = async () => {
+//     try {
+//       const response = await axios.post('http://192.168.137.1:3000/recommend', {
+//         latitude: 37.7749, // Example latitude
+//         longitude: -122.4194, // Example longitude
+//         distance: 5,
+//         foodType: selectedFoodType
+//       });
+
+//       navigation.navigate("Result", { restaurant: response.data });
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   return (
+//     <ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1200 }}>
+//       <View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
+//         <Text style={styles.showAllOpen}>show only open restaurants</Text>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper, styles.labelWrapperLayout1, selectedRestaurantType === 'restaurant' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedRestaurantType('restaurant')}
+//         >
+//           <Text style={[styles.label, styles.labelLayout]}>{`Restaurant `}</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelContainer, styles.labelWrapperLayout1, selectedRestaurantType === 'takeout' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedRestaurantType('takeout')}
+//         >
+//           <Text style={[styles.label1, styles.labelLayout]}>Take Out</Text>
+//         </TouchableOpacity>
+//         <Text style={[styles.or, styles.orPosition]}>or</Text>
+//         <Switch
+//           style={styles.frameChild}
+//           value={rectangleSwitchSwitchValueState}
+//           onValueChange={setRectangleSwitchSwitchValueState}
+//           trackColor={{ false: "#939393", true: "#d9d9d9" }}
+//         />
+//       </View>
+//       <View style={[styles.foodTypeParent, styles.parentPosition]}>
+//         <Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
+//         <TouchableOpacity
+//           style={[styles.labelFrame, styles.labelWrapperLayout1, selectedFoodType === 'pizza' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('pizza')}
+//         >
+//           <Text style={[styles.label2, styles.labelLayout]}>Pizza</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.frameTouchableopacity, styles.labelWrapper4Layout, selectedFoodType === 'cultural' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('cultural')}
+//         >
+//           <Text style={[styles.label3, styles.labelLayout]}>Cultural</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper1, styles.labelWrapperLayout1, selectedFoodType === 'general' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('general')}
+//         >
+//           <Text style={[styles.label3, styles.labelLayout]}>General</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper2, styles.labelWrapperLayout, selectedFoodType === 'italian' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('italian')}
+//         >
+//           <Text style={[styles.label5, styles.labelLayout]}>Italian</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper3, styles.labelWrapperLayout, selectedFoodType === 'chicken' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('chicken')}
+//         >
+//           <Text style={[styles.label6, styles.labelLayout]}>Chicken</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           style={[styles.labelWrapper4, styles.labelWrapper4Layout, selectedFoodType === 'seaFood' && styles.buttonPressed]}
+//           activeOpacity={0.2}
+//           onPress={() => setSelectedFoodType('seaFood')}
+//         >
+//           <Text style={[styles.label7, styles.labelLayout]}>Sea Food</Text>
+//         </TouchableOpacity>
+//       </View>
+//       <View style={styles.budgetParent}>
+//         <Text style={[styles.budget, styles.budgetTypo]}>Budget:</Text>
+//         <TextInput
+//           style={[styles.extra, styles.extraTypo]}
+//           placeholder="Enter"
+//           keyboardType="number-pad"
+//           autoCapitalize="none"
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//           value={budget}
+//           onChangeText={setBudget}
+//         />
+//         <Text style={[styles.n, styles.nFlexBox]}>N$</Text>
+//       </View>
+//       <TouchableOpacity
+//         style={styles.searchWrapper}
+//         activeOpacity={0.2}
+//         onPress={handleSearchPress}
+//       >
+//         <Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
+//       </TouchableOpacity>
+//       <View style={styles.anyOtherParent}>
+//         <Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
+//         <View style={styles.frameItem} />
+//         <TextInput
+//           style={[styles.extra1, styles.extraTypo]}
+//           placeholder="Enter any other criteria"
+//           keyboardType="default"
+//           autoCapitalize="none"
+//           multiline={true}
+//           placeholderTextColor="rgba(60, 60, 67, 0.6)"
+//           value={otherCriteria}
+//           onChangeText={setOtherCriteria}
+//         />
+//       </View>
+//       <Text style={[styles.filters1, styles.searchTypo]}>Filters</Text>
+//     </ScrollView>
+//   );
+// };
+
 import React, { useState } from 'react';
-import {Text, StyleSheet, Pressable, TouchableOpacity, Switch, View, ScrollView, TextInput} from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Switch, View, ScrollView, TextInput } from "react-native";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 
+const Filters = () => {
+  const [openNow, setOpenNow] = useState(false);
+  const [selectedRestaurantType, setSelectedRestaurantType] = useState('');
+  const [selectedFoodType, setSelectedFoodType] = useState('');
+  const [budget, setBudget] = useState('');
+  const [otherCriteria, setOtherCriteria] = useState('');
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { latitude, longitude, distance, city } = route.params;
 
-const Filters = ({ navigation }) => {
-	const [rectangleSwitchSwitchValueState, setRectangleSwitchSwitchValueState] = useState(false);
-  
-	const [selectedButtons, setSelectedButtons] = useState({
-	  restaurant: false,
-	  takeout: false,
-	  general: false,
-	  italian: false,
-	  pizza: false,
-	  chicken: false,
-	  cultural: false,
-	  seaFood: false,
-	});
-  
-	const handleButtonPress = (buttonName) => {
-	  setSelectedButtons((prevState) => ({
-		...prevState,
-		[buttonName]: !prevState[buttonName],
-	  }));
-	};
-  
-	return (
-	  <ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1200 }}>
-		<View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
-		  <Text style={styles.showAllOpen}>show all open restaurants</Text>
-		  <TouchableOpacity
-			style={[styles.labelWrapper, styles.labelWrapperLayout1, selectedButtons.restaurant && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('restaurant')}
-		  >
-			<Text style={[styles.label, styles.labelLayout]}>{`Restaurant `}</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.labelContainer, styles.labelWrapperLayout1, selectedButtons.takeout && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('takeout')}
-		  >
-			<Text style={[styles.label1, styles.labelLayout]}>Take Out</Text>
-		  </TouchableOpacity>
-		  <Text style={[styles.or, styles.orPosition]}>or</Text>
-		  <Switch
-			style={styles.frameChild}
-			value={rectangleSwitchSwitchValueState}
-			onValueChange={setRectangleSwitchSwitchValueState}
-			trackColor={{ false: "#939393", true: "#d9d9d9" }}
-		  />
-		</View>
-		<View style={[styles.foodTypeParent, styles.parentPosition]}>
-		  <Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
-		  <TouchableOpacity
-			style={[styles.labelFrame, styles.labelWrapperLayout1, selectedButtons.pizza && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('pizza')}
-		  >
-			<Text style={[styles.label2, styles.labelLayout]}>Pizza</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.frameTouchableopacity, styles.labelWrapper4Layout, selectedButtons.cultural && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('cultural')}
-		  >
-			<Text style={[styles.label3, styles.labelLayout]}>Cultural</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.labelWrapper1, styles.labelWrapperLayout1, selectedButtons.general && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('general')}
-		  >
-			<Text style={[styles.label3, styles.labelLayout]}>General</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.labelWrapper2, styles.labelWrapperLayout, selectedButtons.italian && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('italian')}
-		  >
-			<Text style={[styles.label5, styles.labelLayout]}>Italian</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.labelWrapper3, styles.labelWrapperLayout, selectedButtons.chicken && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('chicken')}
-		  >
-			<Text style={[styles.label6, styles.labelLayout]}>Chicken</Text>
-		  </TouchableOpacity>
-		  <TouchableOpacity
-			style={[styles.labelWrapper4, styles.labelWrapper4Layout, selectedButtons.seaFood && styles.buttonPressed]}
-			activeOpacity={0.2}
-			onPress={() => handleButtonPress('seaFood')}
-		  >
-			<Text style={[styles.label7, styles.labelLayout]}>Sea Food</Text>
-		  </TouchableOpacity>
-		</View>
-		<View style={styles.budgetParent}>
-		  <Text style={[styles.budget, styles.budgetTypo]}>Budget:</Text>
-		  <TextInput
-			style={[styles.extra, styles.extraTypo]}
-			placeholder="Enter"
-			keyboardType="number-pad"
-			autoCapitalize="none"
-			placeholderTextColor="rgba(60, 60, 67, 0.6)"
-		  />
-		  <Text style={[styles.n, styles.nFlexBox]}>N$</Text>
-		</View>
-		<TouchableOpacity
-		  style={styles.searchWrapper}
-		  activeOpacity={0.2}
-		  onPress={() => { navigation.navigate("Result") }}
-		>
-		  <Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
-		</TouchableOpacity>
-		<View style={styles.anyOtherParent}>
-		  <Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
-		  <View style={styles.frameItem} />
-		  <TextInput
-			style={[styles.extra1, styles.extraTypo]}
-			placeholder="Enter any other cr"
-			multiline={true}
-			placeholderTextColor="rgba(60, 60, 67, 0.6)"
-		  />
-		</View>
-		<Text style={[styles.filters1, styles.searchTypo]}>Filters</Text>
-	  </ScrollView>
-	);
+  const handleRestaurantTypePress = (type) => {
+    setSelectedRestaurantType(type);
   };
+
+  const handleFoodTypePress = (type) => {
+    setSelectedFoodType(type);
+  };
+
+  const handleSearchPress = async () => {
+    try {
+      const genAI = new GoogleGenerativeAI("AIzaSyDNs1TPxTUL3srzuqePmJwj44iwyQwcOuQ");
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const prompt = `
+        Recommend :
+		- Location: ${latitude}, ${longitude}
+		- Distance: ${distance || 'Any'} km
+		- City: ${city || 'Any'}
+        - Other Criteria: ${otherCriteria || 'None'}
+		- Restaurant Type: ${selectedRestaurantType || 'Any'}
+		- Open Now: ${openNow ? 'Yes' : 'No'}
+		- Food Type: ${selectedFoodType || 'Any'}
+		- Budget: ${budget || 'Any'}
+
+      `;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const restaurant = response.text();
+
+      navigation.navigate("Result", { restaurant });
+    } catch (error) {
+      console.error('Error fetching restaurant recommendation:', error);
+    }
+  };
+
+  return (
+    <ScrollView style={styles.filters} contentContainerStyle={{ minHeight: 1200 }}>
+      <View style={[styles.showAllOpenRestaurantsParent, styles.parentPosition]}>
+        <Text style={styles.showAllOpen}>Show only open restaurants</Text>
+        <Switch
+          style={styles.frameChild}
+          value={openNow}
+          onValueChange={setOpenNow}
+          trackColor={{ false: "#939393", true: "#d9d9d9" }}
+        />
+      </View>
+      <View style={[styles.foodTypeParent, styles.parentPosition]}>
+        <Text style={[styles.foodType, styles.budgetTypo]}>Restaurant Type</Text>
+        <TouchableOpacity
+          style={[styles.labelWrapper, styles.labelWrapperLayout1, selectedRestaurantType === 'Restaurant' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleRestaurantTypePress('Restaurant')}
+        >
+          <Text style={[styles.label, styles.labelLayout]}>Restaurant</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.labelContainer, styles.labelWrapperLayout1, selectedRestaurantType === 'Takeout' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleRestaurantTypePress('Takeout')}
+        >
+          <Text style={[styles.label1, styles.labelLayout]}>Takeout</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.foodTypeParent, styles.parentPosition]}>
+        <Text style={[styles.foodType, styles.budgetTypo]}>Food Type</Text>
+        <TouchableOpacity
+          style={[styles.labelFrame, styles.labelWrapperLayout1, selectedFoodType === 'Pizza' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('Pizza')}
+        >
+          <Text style={[styles.label2, styles.labelLayout]}>Pizza</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.frameTouchableopacity, styles.labelWrapper4Layout, selectedFoodType === 'Cultural' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('Cultural')}
+        >
+          <Text style={[styles.label3, styles.labelLayout]}>Cultural</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.labelWrapper1, styles.labelWrapperLayout1, selectedFoodType === 'General' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('General')}
+        >
+          <Text style={[styles.label3, styles.labelLayout]}>General</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.labelWrapper2, styles.labelWrapperLayout, selectedFoodType === 'Italian' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('Italian')}
+        >
+          <Text style={[styles.label5, styles.labelLayout]}>Italian</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.labelWrapper3, styles.labelWrapperLayout, selectedFoodType === 'Chicken' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('Chicken')}
+        >
+          <Text style={[styles.label6, styles.labelLayout]}>Chicken</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.labelWrapper4, styles.labelWrapper4Layout, selectedFoodType === 'Seafood' && styles.buttonPressed]}
+          activeOpacity={0.2}
+          onPress={() => handleFoodTypePress('Seafood')}
+        >
+          <Text style={[styles.label7, styles.labelLayout]}>Seafood</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.budgetParent}>
+        <Text style={[styles.budget, styles.budgetTypo]}>Budget:</Text>
+        <TextInput
+          style={[styles.extra, styles.extraTypo]}
+          placeholder="Enter"
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          placeholderTextColor="rgba(60, 60, 67, 0.6)"
+          value={budget}
+          onChangeText={setBudget}
+        />
+        <Text style={[styles.n, styles.nFlexBox]}>N$</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.searchWrapper}
+        activeOpacity={0.2}
+        onPress={handleSearchPress}
+      >
+        <Text style={[styles.search, styles.searchTypo]}>SEARCH</Text>
+      </TouchableOpacity>
+      <View style={styles.anyOtherParent}>
+        <Text style={[styles.anyOther, styles.budgetTypo]}>Any Other:</Text>
+        <View style={styles.frameItem} />
+        <TextInput
+          style={[styles.extra1, styles.extraTypo]}
+          placeholder="Enter any other criteria"
+          keyboardType="default"
+          autoCapitalize="none"
+          multiline={true}
+          placeholderTextColor="rgba(60, 60, 67, 0.6)"
+          value={otherCriteria}
+          onChangeText={setOtherCriteria}
+        />
+      </View>
+      <Text style={[styles.filters1, styles.searchTypo]}>Filters</Text>
+    </ScrollView>
+  );
+};
 
   const styles = StyleSheet.create({
 	parentPosition: {

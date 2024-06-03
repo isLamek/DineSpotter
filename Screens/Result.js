@@ -1,26 +1,139 @@
-import React from "react";
-import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity} from "react-native";
-import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
+// import React from "react";
+// import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity} from "react-native";
+// import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
 
+
+// const Result = () => {
+  	
+//   	return (
+//     		<ScrollView style={styles.result}>
+//       			<View style={styles.aiResponseParent}>
+//         				<Text style={styles.aiResponse}>{`AI response will be displayed here`}</Text>
+//                 <View style={styles.frameChild} />
+//                 <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={()=>{}}>
+//                     <View style={[styles.groupChild, styles.groupBorder]} />
+//                     <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
+//                 </TouchableOpacity>
+//                 <TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.2} onPress={()=>{}}>
+//                     <View style={[styles.groupItem, styles.groupLayout]} />
+//                     <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
+//                 </TouchableOpacity>
+//             </View>
+//             <Text style={[styles.restaurantName, styles.retryTypo]}>Restaurant Name</Text>
+//         </ScrollView>);
+// };
+
+// import React, { useState } from "react";
+// import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, Linking } from "react-native";
+// import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
+// import axios from 'axios';
+
+// const Result = ({ route, navigation }) => {
+//   const { restaurant } = route.params;
+//   const [currentRestaurant, setCurrentRestaurant] = useState(restaurant);
+//   const [previousRestaurantId, setPreviousRestaurantId] = useState(restaurant.placeId);
+
+//   const handleRetry = async () => {
+//     try {
+//       const response = await axios.post('http://192.168.137.1:3000/recommend', {
+//         latitude: 37.7749, // Example latitude
+//         longitude: -122.4194, // Example longitude
+//         distance: 5,
+//         foodType: 'restaurant' // Update with appropriate type
+//       });
+
+//       if (response.data.placeId !== previousRestaurantId) {
+//         setCurrentRestaurant(response.data);
+//         setPreviousRestaurantId(response.data.placeId);
+//       } else {
+//         handleRetry(); // Retry if the same restaurant is recommended
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const handleDirections = () => {
+//     const url = `https://www.google.com/maps/place/?q=place_id:${currentRestaurant.placeId}`;
+//     Linking.openURL(url);
+//   };
+
+//   return (
+//     <ScrollView style={styles.result}>
+//       <View style={styles.aiResponseParent}>
+//         <Text style={styles.aiResponse}>{currentRestaurant.address}</Text>
+//         <Image
+//           source={{ uri: currentRestaurant.photoUrl }}
+//           style={styles.frameChild}
+//         />
+//         <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={handleRetry}>
+//           <View style={[styles.groupChild, styles.groupBorder]} />
+//           <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.2} onPress={handleDirections}>
+//           <View style={[styles.groupItem, styles.groupLayout]} />
+//           <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
+//         </TouchableOpacity>
+//       </View>
+//       <Text style={[styles.restaurantName, styles.retryTypo]}>{currentRestaurant.name}</Text>
+//     </ScrollView>
+//   );
+// };
+
+import React, { useState } from "react";
+import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, Linking } from "react-native";
+import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const Result = () => {
-  	
-  	return (
-    		<ScrollView style={styles.result}>
-      			<View style={styles.aiResponseParent}>
-        				<Text style={styles.aiResponse}>{`AI response will be displayed here`}</Text>
-                <View style={styles.frameChild} />
-                <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={()=>{}}>
-                    <View style={[styles.groupChild, styles.groupBorder]} />
-                    <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.2} onPress={()=>{}}>
-                    <View style={[styles.groupItem, styles.groupLayout]} />
-                    <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
-                </TouchableOpacity>
-            </View>
-            <Text style={[styles.restaurantName, styles.retryTypo]}>Restaurant Name</Text>
-        </ScrollView>);
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { restaurant } = route.params;
+  const [currentRestaurant, setCurrentRestaurant] = useState(restaurant);
+
+  const fetchAnotherRestaurant = async () => {
+    try {
+      const genAI = new GoogleGenerativeAI("AIzaSyDNs1TPxTUL3srzuqePmJwj44iwyQwcOuQ");
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const prompt = `
+        Recommend another restaurant excluding the one previously recommended:
+        Previous Recommendation: ${currentRestaurant}
+      `;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const newRestaurant = response.text();
+      setCurrentRestaurant(newRestaurant);
+    } catch (error) {
+      console.error('Error fetching another restaurant recommendation:', error);
+    }
+  };
+
+  const handleDirectionsPress = () => {
+    const location = currentRestaurant.location; // Replace with actual location data if available
+    const url = `https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`;
+    Linking.openURL(url);
+  };
+
+  return (
+    <ScrollView style={styles.result}>
+      <View style={styles.aiResponseParent}>
+        <Text style={styles.aiResponse}>{currentRestaurant}</Text>
+        <View style={styles.frameChild} />
+        <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={fetchAnotherRestaurant}>
+          <View style={[styles.groupChild, styles.groupBorder]} />
+          <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.2} onPress={handleDirectionsPress}>
+          <View style={[styles.groupItem, styles.groupLayout]} />
+          <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={[styles.restaurantName, styles.retryTypo]}>{currentRestaurant.name}</Text>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -1,10 +1,10 @@
-import { FontSize, Border, FontFamily, Color } from "./GlobalStyles";
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as Location from 'expo-location';
+import { FontSize, Border, FontFamily, Color } from "./GlobalStyles";
 
-const DistanceInput = () => {
+const DistanceInput = ({ route }) => {
+  const { latitude, longitude } = route.params;
   const [distance, setDistance] = useState(5);
   const navigation = useNavigation();
 
@@ -13,53 +13,25 @@ const DistanceInput = () => {
   };
 
   const handleDecrease = () => {
-    setDistance(prevDistance => prevDistance - 5);
+    setDistance(prevDistance => (prevDistance > 5 ? prevDistance - 5 : prevDistance));
   };
 
-  const handleNext = async () => {
-    try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Location permission denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      // Record the entered distance and current location for later use
-      console.log('Distance:', distance, 'km');
-      console.log('Current Location:', location.coords.latitude, location.coords.longitude);
-
-      // Navigate to the next screen
-      navigation.navigate('Filters');
-    } catch (error) {
-      console.error('Error getting current location:', error);
-    }
+  const handleNext = () => {
+    navigation.navigate('Filters', { latitude, longitude, distance });
   };
 
   return (
     <ScrollView style={styles.distanceInput}>
       <View style={[styles.distanceInputChild, styles.distancePosition]} />
-      <TouchableOpacity 
-        style={styles.nextWrapper} 
-        activeOpacity={0.3} 
-        onPress={handleNext}
-      >
+      <TouchableOpacity style={styles.nextWrapper} activeOpacity={0.3} onPress={handleNext}>
         <Text style={styles.next}>Next</Text>
       </TouchableOpacity>
       <View style={[styles.rectangleParent, styles.distancePosition]}>
         <View style={[styles.frameChild, styles.frameLayout]} />
-        <TouchableOpacity 
-          style={[styles.touchableopacity, styles.kmPosition]} 
-          activeOpacity={0.2} 
-          onPress={handleDecrease}
-        >
+        <TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={handleDecrease}>
           <Text style={[styles.text, styles.textTypo]}>-</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.touchableopacity, styles.kmPosition]} 
-          activeOpacity={0.2} 
-          onPress={handleIncrease}
-        >
+        <TouchableOpacity style={[styles.touchableopacity, styles.kmPosition]} activeOpacity={0.2} onPress={handleIncrease}>
           <Text style={[styles.text1, styles.textTypo]}>+</Text>
         </TouchableOpacity>
         <View style={[styles.frameItem, styles.frameLayout]} />
@@ -70,11 +42,6 @@ const DistanceInput = () => {
     </ScrollView>
   );
 };
-
-DistanceInput.navigationOptions = {
-  headerShown: false,
-};
-
 
 const styles = StyleSheet.create({
   	distancePosition: {
