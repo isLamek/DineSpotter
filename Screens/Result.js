@@ -1,71 +1,101 @@
-// import React from "react";
-// import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity} from "react-native";
-// import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
 
+// import React, { useState, useEffect } from "react";
+// import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, Alert, Linking } from "react-native";
+// import { useNavigation, useRoute } from "@react-navigation/native";
+// import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
+// import { GoogleGenerativeAI } from "@google/generative-ai";
+
+
+// const apiKey = "AIzaSyDngam3xQfnkIva32Fb-0o4QMp9CF1puzc";
+// const geminiApiKey = "AIzaSyDNs1TPxTUL3srzuqePmJwj44iwyQwcOuQ";
 
 // const Result = () => {
-  	
-//   	return (
-//     		<ScrollView style={styles.result}>
-//       			<View style={styles.aiResponseParent}>
-//         				<Text style={styles.aiResponse}>{`AI response will be displayed here`}</Text>
-//                 <View style={styles.frameChild} />
-//                 <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={()=>{}}>
-//                     <View style={[styles.groupChild, styles.groupBorder]} />
-//                     <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
-//                 </TouchableOpacity>
-//                 <TouchableOpacity style={[styles.rectangleGroup, styles.groupLayout]} activeOpacity={0.2} onPress={()=>{}}>
-//                     <View style={[styles.groupItem, styles.groupLayout]} />
-//                     <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
-//                 </TouchableOpacity>
-//             </View>
-//             <Text style={[styles.restaurantName, styles.retryTypo]}>Restaurant Name</Text>
-//         </ScrollView>);
-// };
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   const { filters } = route.params;
+//   const [restaurant, setRestaurant] = useState(null);
+//   const [aiResponse, setAiResponse] = useState('');
+//   const [excludeRestaurant, setExcludeRestaurant] = useState('');
 
-// import React, { useState } from "react";
-// import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, Linking } from "react-native";
-// import { Border, Color, FontFamily, FontSize } from "./GlobalStyles";
-// import axios from 'axios';
+//   useEffect(() => {
+//     fetchRestaurant();
+//   }, []);
 
-// const Result = ({ route, navigation }) => {
-//   const { restaurant } = route.params;
-//   const [currentRestaurant, setCurrentRestaurant] = useState(restaurant);
-//   const [previousRestaurantId, setPreviousRestaurantId] = useState(restaurant.placeId);
-
-//   const handleRetry = async () => {
+//   const fetchRestaurant = async () => {
 //     try {
-//       const response = await axios.post('http://192.168.137.1:3000/recommend', {
-//         latitude: 37.7749, // Example latitude
-//         longitude: -122.4194, // Example longitude
-//         distance: 5,
-//         foodType: 'restaurant' // Update with appropriate type
-//       });
+//       const location = filters.location
+//         ? `${filters.location.latitude},${filters.location.longitude}`
+//         : filters.city;
 
-//       if (response.data.placeId !== previousRestaurantId) {
-//         setCurrentRestaurant(response.data);
-//         setPreviousRestaurantId(response.data.placeId);
+//       const response = await fetch(
+//         `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${filters.distance * 1000}&type=restaurant&keyword=${filters.foodType}&key=${apiKey}`
+//       );
+
+//       const data = await response.json();
+
+//       if (data.results.length > 0) {
+//         const selectedRestaurant = data.results[0];
+//         setRestaurant({
+//           name: selectedRestaurant.name,
+//           description: selectedRestaurant.vicinity,
+//           image: selectedRestaurant.photos
+//             ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${selectedRestaurant.photos[0].photo_reference}&key=${apiKey}`
+//             : null,
+//           location: selectedRestaurant.geometry.location,
+//         });
+//         getAIResponse(selectedRestaurant.name, selectedRestaurant.vicinity);
 //       } else {
-//         handleRetry(); // Retry if the same restaurant is recommended
+//         Alert.alert("No restaurants found", "Please try different filters.");
 //       }
 //     } catch (error) {
-//       console.error(error);
+//       console.error("Error fetching restaurant:", error);
+//       Alert.alert("Error", "Something went wrong while fetching restaurant data.");
 //     }
 //   };
 
+//   const getAIResponse = async (name, vicinity) => {
+//     try {
+//       const genAI = new GoogleGenerativeAI(geminiApiKey);
+//       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+//       const prompt = `Recommend a restaurant based on the following filters: 
+//       Restaurant Name: ${name}, 
+//       Location: ${vicinity}, 
+//       Other Criteria: ${filters.otherCriteria}`;
+
+//       const result = await model.generateContent(prompt);
+//       const response = await result.response;
+//       const text = await response.text();
+//       setAiResponse(text);
+//     } catch (error) {
+//       console.error("Error with AI response:", error);
+//     }
+//   };
+
+//   const handleRetry = () => {
+//     setExcludeRestaurant(restaurant.name);
+//     fetchRestaurant();
+//   };
+
 //   const handleDirections = () => {
-//     const url = `https://www.google.com/maps/place/?q=place_id:${currentRestaurant.placeId}`;
+//     if (!restaurant) {
+//       Alert.alert("No restaurant found", "Please try again.");
+//       return;
+//     }
+
+//     const { location } = restaurant;
+//     const url = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
 //     Linking.openURL(url);
 //   };
 
 //   return (
 //     <ScrollView style={styles.result}>
 //       <View style={styles.aiResponseParent}>
-//         <Text style={styles.aiResponse}>{currentRestaurant.address}</Text>
-//         <Image
-//           source={{ uri: currentRestaurant.photoUrl }}
-//           style={styles.frameChild}
-//         />
+//         <Text style={styles.aiResponse}>{aiResponse}</Text>
+//         <View style={styles.frameChild} />
+//         {restaurant && restaurant.image && (
+//           <Image source={{ uri: restaurant.image }} style={styles.restaurantImage} />
+//         )}
 //         <TouchableOpacity style={[styles.rectangleParent, styles.groupChildLayout]} activeOpacity={0.2} onPress={handleRetry}>
 //           <View style={[styles.groupChild, styles.groupBorder]} />
 //           <Text style={[styles.retry, styles.retryTypo]}>Retry</Text>
@@ -75,7 +105,7 @@
 //           <Text style={[styles.directions, styles.retryTypo]}>Directions</Text>
 //         </TouchableOpacity>
 //       </View>
-//       <Text style={[styles.restaurantName, styles.retryTypo]}>{currentRestaurant.name}</Text>
+//       <Text style={[styles.restaurantName, styles.retryTypo]}>{restaurant ? restaurant.name : "Restaurant Name"}</Text>
 //     </ScrollView>
 //   );
 // };
@@ -94,7 +124,7 @@ const Result = () => {
 
   const fetchAnotherRestaurant = async () => {
     try {
-      const genAI = new GoogleGenerativeAI("AIzaSyDNs1TPxTUL3srzuqePmJwj44iwyQwcOuQ");
+      const genAI = new GoogleGenerativeAI("AIzaSyBNNhlJk_B4KTOrtEYnko3XIZ7XiEXResI");
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
@@ -137,6 +167,16 @@ const Result = () => {
 };
 
 const styles = StyleSheet.create({
+
+  result: {
+    flex: 1,
+  },
+
+  restaurantImage: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#d9d9d9',
+  },
     groupChildLayout: {
         height: 33,
         width: 101,

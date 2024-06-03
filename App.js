@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='MainMenu'>
+      <Stack.Navigator initialRouteName='MainMenu' screenOptions={{ headerShown: false}}>
         <Stack.Screen component={MainMenu} name="MainMenu" />
         <Stack.Screen component={DistanceInput} name="DistanceInput" />
         <Stack.Screen component={LocationInput} name="LocationInput" />

@@ -3,8 +3,7 @@ import { Text, StyleSheet, ScrollView, View, TouchableOpacity, Alert } from "rea
 import { FontFamily, Color, Border, FontSize } from "./GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from 'expo-location';
-import { gloryExtraBold } from "expo-font";
-import { useFonts } from "expo-font";
+
 
 const MainMenu = () => {
   const navigation = useNavigation();
@@ -42,10 +41,12 @@ const MainMenu = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   	letsGetYouTypo: {
+			
     		textAlign: "center",
-    		fontFamily: FontFamily.gloryExtraBold,
+    		// fontFamily: FontFamily.gloryExtraBold,
     		fontWeight: "800",
     		position: "absolute"
   	},

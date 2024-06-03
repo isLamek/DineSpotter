@@ -43,6 +43,7 @@ const DistanceInput = ({ route }) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   	distancePosition: {
     		left: "50%",
@@ -59,14 +60,14 @@ const styles = StyleSheet.create({
     		left: "50%"
   	},
   	textTypo: {
-    		fontFamily: FontFamily.interBlack,
+    		// fontFamily: FontFamily.interBlack,
     		fontWeight: "900",
     		color: Color.colorWhite,
     		textAlign: "center"
   	},
   	kmTypo: {
     		fontSize: FontSize.size_xl,
-    		fontFamily: FontFamily.interBlack,
+    		// fontFamily: FontFamily.interBlack,
     		fontWeight: "900",
     		textAlign: "center",
     		position: "absolute"
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     		left: 0,
     		fontSize: 32,
     		fontWeight: "800",
-    		fontFamily: FontFamily.gloryExtraBold,
+    		// fontFamily: FontFamily.gloryExtraBold,
     		textAlign: "center",
     		color: Color.colorBlack,
     		width: 163,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     		color: Color.colorWhite,
     		fontSize: FontSize.size_29xl,
     		marginTop: -34,
-    		fontFamily: FontFamily.interBlack,
+    		// fontFamily: FontFamily.interBlack,
     		fontWeight: "900"
   	},
   	touchableopacity: {
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     		color: Color.colorWhite,
     		fontSize: FontSize.size_29xl,
     		marginTop: -34,
-    		fontFamily: FontFamily.interBlack,
+    		// fontFamily: FontFamily.interBlack,
     		fontWeight: "900"
   	},
   	frameItem: {

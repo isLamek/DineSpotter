@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     		letterSpacing: 0,
     		lineHeight: 45,
     		fontWeight: "900",
-    		fontFamily: FontFamily.interBlack,
+    		// fontFamily: FontFamily.interBlack,
     		textAlign: "left"
   	},
   	groupChild: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   	extra: {
     		marginLeft: -145,
     		width: 288,
-    		fontFamily: FontFamily.abelRegular,
+    		// fontFamily: FontFamily.abelRegular,
     		fontSize: 17
   	},
   	rectangleParent: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     		marginLeft: -31.5,
     		top: 8,
     		fontWeight: "800",
-    		fontFamily: FontFamily.gloryExtraBold,
+    		// fontFamily: FontFamily.gloryExtraBold,
     		textAlign: "center"
   	},
   	rectangleGroup: {
