@@ -17,10 +17,10 @@ const MainMenu = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      // Record the location for later use
+      
       console.log('Current Location:', location.coords.latitude, location.coords.longitude);
       
-      // Navigate to the next screen
+      
       navigation.navigate("DistanceInput", { latitude: location.coords.latitude, longitude: location.coords.longitude });
     } catch (error) {
       console.error('Error getting current location:', error);
@@ -28,7 +28,7 @@ const MainMenu = () => {
   };
 
   return (
-    <ScrollView style={styles.mainMenu}>
+    <View style={styles.mainMenu}>
       <Text style={[styles.letsGetYou, styles.letsGetYouTypo]}>Let’s Get You A Place To Go Out To Eat....</Text>
       <View style={styles.mainMenuChild} />
       <TouchableOpacity style={[styles.useCurrentLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.4} onPress={handleUseCurrentLocation}>
@@ -37,7 +37,7 @@ const MainMenu = () => {
       <TouchableOpacity style={[styles.setLocationWrapper, styles.locationWrapperLayout]} activeOpacity={0.3} onPress={() => { navigation.navigate("LocationInput") }}>
         <Text style={[styles.useCurrentLocation, styles.letsGetYouTypo]}>Set             Location</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 };
 

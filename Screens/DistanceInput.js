@@ -21,7 +21,7 @@ const DistanceInput = ({ route }) => {
   };
 
   return (
-    <ScrollView style={styles.distanceInput}>
+    <View style={styles.distanceInput}>
       <View style={[styles.distanceInputChild, styles.distancePosition]} />
       <TouchableOpacity style={styles.nextWrapper} activeOpacity={0.3} onPress={handleNext}>
         <Text style={styles.next}>Next</Text>
@@ -39,7 +39,7 @@ const DistanceInput = ({ route }) => {
         <Text style={[styles.text2, styles.kmTypo]}>{distance}</Text>
       </View>
       <Text style={[styles.distance, styles.textTypo]}>Distance</Text>
-    </ScrollView>
+    </View>
   );
 };
 
